@@ -20,20 +20,15 @@
 
 
 
-<p align="left">
-  <font color="#f32024" size="16"><b>Introduction</b></font>
-</p>
+## **Introduction**
 
 
 3D nuclear segmentation is critical for quantitative analysis of mouse blastocyst embryos, enabling measurements of nucleus volume, shape, intensity, and spatial distribution essential for developmental biology studies. This 3D fluorescence microscopy stacks of mouse embryo sections stained with DAPI, a fluorescent dye  to visualize nuclear DNA. Samples were acquired as 78-slice Z-stacks (512×512 pixels) using laser scanning microscopy, capturing complete cellular volumes across multiple fields of view (FOVs). The specific goal is to accurately segment and count nuclei (~78 per FOV) across the full Z-depth, addressing challenges like out-of-focus top slices and touching nuclei that confound 2D analysis.
 
 
-<p align="LEFTSIDE">
-  <span style="color: #f32024; font-size: 26px; font-weight: bold;">
-     Table of Content
-  </span>
-</p>
 
+
+## **Table of Content**
 
 - MATERIALS AND METHODS
 - Workflow/Results
@@ -74,23 +69,23 @@ Apply a 3D Gaussian filter. Process → Filters → Gaussian Blur 3D…,
 
 
 #### 2. Binarisation (thresholding) in 3D
-On the blurred stack, use Image → Adjust → Threshold…, tick “Stack”, choose a method like Otsu, adjust if needed so nuclei are red and background is not, then click “Apply” to get a binary 3D mask (nuclei = white, background = black).
+On the blurred stack, use Image → Adjust → Threshold…, tick “Stack”, choose the method  Otsu, adjust  so nuclei are red and background is not, then click “Apply” to get a binary 3D mask (nuclei = white, background = black).
 
-This is the direct 3D analogue of your 2D threshold step; parameter to tune: threshold value / method.
+This is the direct 3D analogue of the 2D threshold step; parameter to tune: threshold value / method.
 
 ![ Result](fiji_file/Picture2.png)
 
 #### 3. 3D dilation and erosion
-Use 3D morphology to clean the binary mask and fix small gaps: options depend on your plugins, e.g. Plugins → 3D ImageJ Suite → Filters → Minimum / Maximum (erosion/dilation) or a 3D mathematical morphology command.
+Use 3D morphology to clean the binary mask and fix small gaps from the plugins, e.g. Plugins → 3D ImageJ Suite → Filters → Minimum / Maximum (erosion/dilation) or  3D mathematical morphology command.
 
-As in 2D, you can use opening (erosion then dilation) to remove tiny objects, and closing (dilation then erosion) to fill small holes; tune the structuring element radius to roughly match your 3D nuclei size in voxels.
+As in 2D, we can use opening (erosion then dilation) to remove tiny objects, and closing (dilation then erosion) to fill small holes; tune the structuring element radius to roughly match your 3D nuclei size in voxels.
 
 
 ![ Result](fiji_file/Picture3.png)
 
 #### 4. 3D watershed to split touching nuclei
 
-With a cleaned binary 3D mask, create a distance map and watershed:with the plugin MorphoLibJ:Plugins → MorphoLibJ → Segmentation → Distance Transform Watershed 3D…, use the binary mask as input, set connectivity (6/26) and “Dynamic 1/2” value to control how aggressively touching nuclei are split.The output showed a labeled 3D image where each nucleus has a different integer label; tuning here is mainly the “dynamic/minima” settings and connectivity to avoid over‑ or under‑segmentation.
+With a cleaned binary 3D mask, create the distance map and watershed:with the plugin MorphoLibJ:Plugins → MorphoLibJ → Segmentation → Distance Transform Watershed 3D…, use the binary mask as input, set connectivity (6/26) and “Dynamic 1/2” value to control how aggressively touching nuclei are split.The output showed a labeled 3D image where each nucleus has a different integer label; tuning here is mainly the “dynamic/minima” settings and connectivity to avoid over‑ or under‑segmentation.
 
 ![ Result](fiji_file/Picture4.png)
 
@@ -107,7 +102,7 @@ In total “184 objects detected with the data showing volume, mean and max inte
 
 
 
-## **B. Workflow  with Python in 2D for a FOV**
+## **B. Workflow  with Python in 2D for a FOV of Mouse brain**
 
 This pipeline focus on apply basic image analysis to public in-situ sequencing mouse brain dataset in a 2d scale to understand different steps done to quatify nuclei present in a fov.Following are the steps which was used to count the nuclei and was able to determine 166 lables across the sample of interest.​
   
@@ -270,7 +265,7 @@ print("DAPI shape:", dapi.shape, "dtype:", dapi.dtype)
 
 ### **2. 3D Gaussian Smoothing**
 
-3D Gaussian Smoothing is a technique used to reduce noise and detail in 3D data, such as volumetric images or point clouds, by convolving the data with a 3D Gaussian kernel.
+3D Gaussian Smoothing is the technique used to reduce noise and detail in 3D data, such as volumetric images or point clouds, by convolving the data with a 3D Gaussian kernel.
 - Applies anisotropic Gaussian blur:  
   - Stronger smoothing in Z (`σ = 1.5`)  
   - Moderate smoothing in XY (`σ = 1.0`)  
@@ -307,8 +302,7 @@ plt.show()
 
 ### **3. Otsu Thresholding + Morphological Cleanup**
 
-Otsu Thresholding is an automated image segmentation technique that determines the optimal threshold to separate an image into two classes (e.g., foreground and background) by minimizing the intra-class variance or maximizing the inter-class variance.Morphological Cleanup is applied after Otsu thresholding to refine the segmented output by removing noise and small artifacts. 
-- Computes global Otsu threshold.
+Otsu Thresholding  an automated image segmentation technique that determines the optimal threshold to separate an image into two classes (e.g., foreground and background) by minimizing the intra-class variance or maximizing the inter-class variance.Morphological Cleanup is applied after Otsu thresholding to refine the segmented output by removing noise and small artifacts.Therefore it helps to 
 - Removes small objects.
 - Closes small gaps using a 3D structuring element.
 - Fills small holes.
@@ -364,7 +358,7 @@ plt.show()
 
 ### **4. Distance Transform + Peak Detection**
 
-Distance Transform is a key step in image segmentation, particularly when used with the Watershed Algorithm in OpenCV.  It computes the distance from each foreground pixel to the nearest background pixel, creating a distance map where peaks correspond to the centers of objects. These peaks are then identified by thresholding the distance-transformed image and applying morphological operations like dilation to isolate distinct regions.
+Distance Transform is a key step in this image segmentation, particularly when used with the Watershed Algorithm.  It computes the distance from each foreground pixel to the nearest background pixel, creating a distance map where peaks correspond to the centers of objects. These peaks are then identified by thresholding the distance-transformed image and applying morphological operations like dilation to isolate distinct regions.Further it,
 - Computes Euclidean distance transform inside nuclei.
 - Detects local maxima as **nuclear centers**.
 - Uses `peak_local_max` with a 3D footprint.
@@ -563,7 +557,7 @@ print("=" * 60)
 
 # **DISCUSSION**
 
-- Nuclei segmentation in phyton showed 190 objects detected compared to ImageJ 184
+- Nuclei segmentation in python showed 190 objects detected compared to ImageJ 184 in 3d scale
 - 3D analysis using deep learning methods can be performed.
 - Hybrid approaches that combine deep learning with classical image processing could provide better accuracy.
 - A count of 180-190 cells could suggest that the embryo is likely at or near the expanded blastocyst stage (day 6–7), consistent    with normal development.
@@ -576,6 +570,7 @@ print("=" * 60)
 
 
 ## 🛠️ Dependencies
+
 
 
 
