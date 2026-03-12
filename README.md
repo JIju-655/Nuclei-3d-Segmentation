@@ -20,47 +20,35 @@
 
 
 
-<p align="LEFTSIDE">
-  <span style="color: #f32024; font-size: 26px; font-weight: bold;">
-     Introduction
-  </span>
+<p align="left">
+  <font color="#f32024" size="16"><b>Introduction</b></font>
 </p>
 
+
 3D nuclear segmentation is critical for quantitative analysis of mouse blastocyst embryos, enabling measurements of nucleus volume, shape, intensity, and spatial distribution essential for developmental biology studies. This 3D fluorescence microscopy stacks of mouse embryo sections stained with DAPI, a fluorescent dye  to visualize nuclear DNA. Samples were acquired as 78-slice Z-stacks (512×512 pixels) using laser scanning microscopy, capturing complete cellular volumes across multiple fields of view (FOVs). The specific goal is to accurately segment and count nuclei (~78 per FOV) across the full Z-depth, addressing challenges like out-of-focus top slices and touching nuclei that confound 2D analysis.
----
+
 
 <p align="LEFTSIDE">
   <span style="color: #f32024; font-size: 26px; font-weight: bold;">
-     Overview
+     Table of Content
   </span>
 </p>
 
 
 - MATERIALS AND METHODS
 - Workflow
-  - python 2D and 3D
   - ImageJ
+  - python 2D and 3D
 - Results
 - Discussion
 
 
-## overview
 
-This project shows the  3D nuclei segmentation pipeline that performs:
 
-- 3D image preprocessing  
-- Adaptive thresholding  
-- Morphological cleanup  
-- Distance‑based seed detection  
-- Marker‑controlled watershed segmentation  
-- Quantitative nuclear measurements  
-- Visualization and export of results 
-
-<p align="LEFTSIDE">
-  <span style="color: #f32024; font-size: 26px; font-weight: bold;">
-     Materials and Method
-  </span>
+<p align="left">
+  <font color="#f32024" size="16"><b>Materials and Methods</b></font>
 </p>
+
 
 Dataset: 78-slice 3D DAPI stacks (shape: Z=78, Y=512, X=512) from mouse embryo LSM files.
 Software:Python 3.12 with scikit-image 0.24.0 (image processing), scipy 1.13.1 (distance transforms), numpy 1.26.4 (arrays), pandas 2.2.2 (measurements),
@@ -70,50 +58,49 @@ Fiji/ImageJ 2.15.0 with MorphoLibJ (3D watershed), 3D Objects Counter (validatio
 
 ---
 
-<p align="LEFTSIDE">
-  <span style="color: #5419cb; font-size: 18px; font-weight: bold;">
-     A, Workflow  with ImageJ for mouse embryo blastocyst
-  </span>
+<p align="center">
+  <font color="#5419cb" size="10"><b>A. Workflow with ImageJ for Mouse Embryo Blastocyst</b></font>
 </p>
 
 
 
 
-### 1. Load and smooth the 3D DAPI stack
+
+#### 1. Load and smooth the 3D DAPI stack
 Open the C–Z hyperstack, pick the DAPI channel  having z‑stack .
 Apply a 3D Gaussian filter. Process → Filters → Gaussian Blur 3D…, 
 
-![ Result](fiji_file/picture1.png)
+![ Result](fiji_file/Picture1.png)
 
 
 
-### 2. Binarisation (thresholding) in 3D
+#### 2. Binarisation (thresholding) in 3D
 On the blurred stack, use Image → Adjust → Threshold…, tick “Stack”, choose a method like Otsu, adjust if needed so nuclei are red and background is not, then click “Apply” to get a binary 3D mask (nuclei = white, background = black).
 
 This is the direct 3D analogue of your 2D threshold step; parameter to tune: threshold value / method.
 
-![ Result](fiji_file/picture2.png)
+![ Result](fiji_file/Picture2.png)
 
-### 3. 3D dilation and erosion
+#### 3. 3D dilation and erosion
 Use 3D morphology to clean the binary mask and fix small gaps: options depend on your plugins, e.g. Plugins → 3D ImageJ Suite → Filters → Minimum / Maximum (erosion/dilation) or a 3D mathematical morphology command.
 
 As in 2D, you can use opening (erosion then dilation) to remove tiny objects, and closing (dilation then erosion) to fill small holes; tune the structuring element radius to roughly match your 3D nuclei size in voxels.
 
 
-![ Result](fiji_file/picture3.png)
+![ Result](fiji_file/Picture3.png)
 
-### 4. 3D watershed to split touching nuclei
+#### 4. 3D watershed to split touching nuclei
 
 With a cleaned binary 3D mask, create a distance map and watershed:with the plugin MorphoLibJ:Plugins → MorphoLibJ → Segmentation → Distance Transform Watershed 3D…, use the binary mask as input, set connectivity (6/26) and “Dynamic 1/2” value to control how aggressively touching nuclei are split.The output showed a labeled 3D image where each nucleus has a different integer label; tuning here is mainly the “dynamic/minima” settings and connectivity to avoid over‑ or under‑segmentation.
 
-![ Result](fiji_file/picture4.png)
+![ Result](fiji_file/Picture4.png)
 
-### 5. Count and inspect nuclei
+#### 5. Count and inspect nuclei
 Use Analyze → 3D Objects Counter and further with Roi manager
 In total “184 objects detected with the data showing volume, mean and max intensity, centroid, and special locations.” 
 
 
-![ Result](fiji_file/picture5.png)
+![ Result](fiji_file/Picture5.png)
 
 
 
@@ -121,10 +108,10 @@ In total “184 objects detected with the data showing volume, mean and max inte
 
 
 
+## **B. Workflow  with Python in 2D for a FOV**
 
-
-
-## Workflow  with Python in 2D
+     
+  
 
 
 
