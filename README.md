@@ -36,10 +36,9 @@
 
 
 - MATERIALS AND METHODS
-- Workflow
+- Workflow/Results
   - ImageJ
   - python 2D and 3D
-- Results
 - Discussion
 
 
@@ -110,7 +109,7 @@ In total “184 objects detected with the data showing volume, mean and max inte
 
 ## **B. Workflow  with Python in 2D for a FOV**
 
-     
+This pipeline focus on apply basic image analysis to public in-situ sequencing mouse brain dataset in a 2d scale to understand different steps done to quatify nuclei present in a fov.Following are the steps which was used to count the nuclei and was able to determine 166 lables across the sample of interest.​
   
 
 
@@ -571,21 +570,12 @@ print("=" * 60)
 
 
 
-## 📂 Project Structure
 
-
-
-project/
-│
-├── dapi_stack.tif                # Input 3D DAPI image
-├── nuclei_results.csv            # Output measurements
-├── FINAL_nuclei_3D_overlay.png   # Final visualization
-├── segmentation_script.py        # Main pipeline script
-└── README.md                     # This file
 
 
 
 
 ## 🛠️ Dependencies
+
 
 
