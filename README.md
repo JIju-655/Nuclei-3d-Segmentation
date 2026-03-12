@@ -39,21 +39,17 @@
 
 
 
-<p align="left">
-  <font color="#f32024" size="16"><b>Materials and Methods</b></font>
-</p>
+## **Materials and Methods**
 
 
 Dataset: 78-slice 3D DAPI stacks (shape: Z=78, Y=512, X=512) from mouse embryo LSM files.
-Software:Python 3.12 with scikit-image 0.24.0 (image processing), scipy 1.13.1 (distance transforms), numpy 1.26.4 (arrays), pandas 2.2.2 (measurements),
- matplotlib 3.8.4 (visualization)
+Software:Python 3.12 with scikit-image 0.24.0 (image processing), scipy 1.13.1 (distance transforms), numpy 1.26.4 (arrays), pandas 2.2.2 (measurements),matplotlib 3.8.4 (visualization) Fiji/ImageJ 2.15.0 with MorphoLibJ (3D watershed), 3D Objects Counter (validation)
 
-Fiji/ImageJ 2.15.0 with MorphoLibJ (3D watershed), 3D Objects Counter (validation)
 
----
+## **Results/Workflow**
 
 <p align="center">
-  <font color="#5419cb" size="10"><b>A. Workflow with ImageJ for Mouse Embryo Blastocyst</b></font>
+  <font color="#5419cb" size="10"><b>A. Workflow with Image-J for Mouse Embryo Blastocyst</b></font>
 </p>
 
 
@@ -570,6 +566,7 @@ print("=" * 60)
 
 
 ## 🛠️ Dependencies
+
 
 
 
