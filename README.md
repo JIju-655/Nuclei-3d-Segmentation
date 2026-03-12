@@ -97,8 +97,11 @@ In total “184 objects detected with the data showing volume, mean and max inte
 
 
 
+<p align="center">
+  <font color="#5419cb" size="10"><b>B. Workflow  with Python in 2D for a FOV of Mouse brain</b></font>
+</p>
 
-## **B. Workflow  with Python in 2D for a FOV of Mouse brain**
+
 
 This pipeline focus on apply basic image analysis to public in-situ sequencing mouse brain dataset in a 2d scale to understand different steps done to quatify nuclei present in a fov.Following are the steps which was used to count the nuclei and was able to determine 166 lables across the sample of interest.​
   
@@ -221,10 +224,12 @@ plt.show()
 
 
 
+<p align="center">
+  <font color="#5419cb" size="10"><b>C, Workflow  with Python in 3D For Mouse Embryo Blastocyst</b></font>
+</p>
 
 
 
-## **Workflow  with Python in 3D For Mouse Embryo Blastocyst**
 
 This Python workflow explains the nuclei segmentation of  DAPI-labeled 3D stacks of mouse blastocysts  through  Gaussian smoothing → Otsu thresholding → morphological cleanup → distance transform watershed → quantitative analysis. Where the parameters detected ~192 nuclei per embryo with volume, centroid, and intensity measurements.
 
@@ -566,6 +571,7 @@ print("=" * 60)
 
 
 ## 🛠️ Dependencies
+
 
 
 
