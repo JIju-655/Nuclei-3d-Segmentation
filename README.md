@@ -561,6 +561,7 @@ print("=" * 60)
 - Nuclei segmentation in python showed 190 objects detected compared to ImageJ 184 in 3d scale
 - 3D analysis using deep learning methods can be performed.
 - Hybrid approaches that combine deep learning with classical image processing could provide better accuracy.
+- This labeled 2D and 3D masks were able to count nuclei and extract per-nucleus measurements such as area and mean intensity, providing a first quantitative readout of nuclear organization in the embryo.
 - A count of 180-190 cells could suggest that the embryo is likely at or near the expanded blastocyst stage (day 6–7), consistent    with normal development.
 
 
@@ -571,6 +572,7 @@ print("=" * 60)
 
 
 ## 🛠️ Dependencies
+
 
 
 
