@@ -418,10 +418,12 @@ technique used to separate touching or overlapping objects in an image by simula
 - Splits touching nuclei.
 - Filters out small objects (<200 voxels).
 - Produces final labeled 3D segmentation.
-
+![Step 5 Result](images/step5.png)
 
 <details>
   <summary><strong> Show Code for Step 5</strong></summary>
+
+
 
 ```bash
 print("\n STEP 5: Watershed segmentation...")
@@ -468,8 +470,8 @@ plt.show()
 
 ```
 
+  
 </details>
-![Step 5 Result](images/step5.png)
 
 ### **6. Quantitative Measurements**
 - Extracts per‑nucleus properties:
